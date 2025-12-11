@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffccd6" />
+        <title>To My Pookie ♥</title>
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <main class="site">
+            <header class="site-header">
+                <div class="logo">
+                    <div class="heart" aria-hidden="true">♥</div>
+                    <span id="siteLabel">For Dillu</span>
+                    <div id="profileWrap">
+                        <img id="profileImg" alt="profile avatar" class="profile-img hidden" />
+                        <label for="profileUpload" class="btn btn-soft" id="profileUploadLabel">Upload profile</label>
+                        <input id="profileUpload" type="file" accept="image/*" hidden />
+                        <select id="themeSelect" aria-label="Theme select" style="margin-left:8px;padding:6px;border-radius:8px;border:1px solid rgba(0,0,0,.06)">
+                            <option value="pastel">Pastel</option>
+                            <option value="dark">Night</option>
+                            <option value="warm">Warm</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <section id="hero" class="hero">
+                <div class="hero-card">
+                    <div class="avatar" aria-hidden="true">
+                        <!-- cute inline SVG avatar -->
+                        <svg viewBox="0 0 100 100" class="avatar-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="cute avatar">
+                            <defs>
+                                <linearGradient id="g" x1="0" x2="1">
+                                    <stop offset="0%" stop-color="#fff3f6" />
+                                    <stop offset="100%" stop-color="#ffd8e3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0" y="0" width="100" height="100" rx="20" fill="url(#g)" />
+                            <g transform="translate(20,18)">
+                                <circle cx="30" cy="18" r="18" fill="#ffffff" opacity="0.8" />
+                                <circle cx="21" cy="15" r="3.2" fill="#f06c9b" />
+                                <circle cx="39" cy="15" r="3.2" fill="#f06c9b" />
+                                <path d="M18 26 Q30 36 42 26" stroke="#f07ca7" stroke-width="2.5" fill="none" stroke-linecap="round" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="hero-text">
+                        <h1>Hey, Dillu 🩷</h1>
+                        <p class="lead">Sugale dah, Edhoke ind vishesm.</p>
+                        <div class="hero-actions">
+                            <a class="btn btn-primary" href="#love">Open Note</a>
+                            <button id="heartBtn" class="btn btn-soft" aria-label="Send a heart">Send heart</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="about">
+                <div class="card">
+                    <h2>About This Page</h2>
+                    <p>This is a tiny surprise — made with soft colors, little animations, and all my heart. It's looks gorgeous on your phone.</p>
+                </div>
+            </section>
+
+            <section id="gallery" class="gallery">
+                <h2>Moments I Love</h2>
+                <div class="gallery-controls">
+                    <label class="btn btn-soft" for="photoUpload">Add photo</label>
+                    <input id="photoUpload" type="file" accept="image/*" multiple hidden />
+                    <button id="clearGallery" class="btn btn-soft">Clear</button>
+                    <button id="startSlideshow" class="btn btn-soft">Start Slideshow</button>
+                    <label class="small" style="display:flex;align-items:center;gap:6px">Speed <input id="slideSpeed" type="range" min="2" max="10" value="4" step="1" style="width:80px"/></label>
+                    <label class="btn btn-soft" for="audioUpload">Add song</label>
+                    <input id="audioUpload" type="file" accept="audio/*" hidden />
+                    <button id="playMusic" class="btn btn-soft" disabled>Play</button>
+                    <button id="createPostcard" class="btn btn-soft">Create Postcard</button>
+                </div>
+                <div class="scroll-x" id="photoStrip" aria-live="polite"></div>
+            </section>
+
+            <section id="love" class="love-note">
+                <div class="card love-card">
+                    <h2>Open your note</h2>
+                    <div class="note" id="note">
+                        <p class="note-text">Click <strong>Open</strong> to reveal a tiny message...</p>
+                    </div>
+                    <div class="note-actions">
+                        <button id="openNote" class="btn btn-primary">Open</button>
+                        <button id="closeNote" class="btn btn-soft" style="display:none">Close</button>
+                        <button id="surpriseConfetti" class="btn btn-soft" title="Surprise">Confetti</button>
+                        <button id="voucherBtn" class="btn btn-soft">Print a Voucher</button>
+                        <button id="shareSecretBtn" class="btn btn-soft">Share Secret</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Share secret modal -->
+            <div id="shareSecretModal" class="modal hidden" role="dialog" aria-modal="true" aria-hidden="true">
+                <div class="modal-panel">
+                    <h3>Share a Secret</h3>
+                    <textarea id="shareSecretText" placeholder="Write a secret message..." style="width:100%;min-height:80px"></textarea>
+                    <input id="shareSecretCode" placeholder="Set a 4-digit code" style="width:100%;margin-top:8px;padding:8px" />
+                    <div class="modal-actions">
+                        <button id="shareSecretCreate" class="btn btn-primary">Create Link</button>
+                        <button id="shareSecretClose" class="btn btn-soft">Cancel</button>
+                    </div>
+                    <div id="generatedLink" style="margin-top:8px;word-break:break-all"></div>
+                </div>
+            </div>
+
+            <!-- Lightbox modal for gallery -->
+            <div id="lightbox" class="lightbox hidden" role="dialog" aria-modal="true" aria-hidden="true">
+                <button id="lbClose" class="lb-close" aria-label="Close">✕</button>
+                <button id="lbPrev" class="lb-prev" aria-label="Previous">◀</button>
+                <img id="lbImage" src="" alt="" />
+                <button id="lbNext" class="lb-next" aria-label="Next">▶</button>
+            </div>
+
+            <!-- Secret puzzle -->
+            <section id="secret" class="about">
+                <div class="card">
+                    <h2>Secret</h2>
+                    <p>Type the secret phrase I give you to unlock a special message.</p>
+                    <div class="secret-puzzle">
+                        <input id="secretInput" placeholder="Type here..." />
+                        <button id="secretCheck" class="btn btn-primary">Check</button>
+                    </div>
+                    <p id="secretResult" class="lead" aria-live="polite"></p>
+                </div>
+            </section>
+
+            <!-- Activity log: shows what actions were taken on the site -->
+            <section id="activity" class="about hidden-activity" aria-hidden="true">
+                <div class="card">
+                    <div style="display:flex;justify-content:space-between;align-items:center">
+                        <h2 style="margin:0">Activity</h2>
+                        <button id="lockActivity" class="btn btn-soft" title="Lock activity">Lock</button>
+                    </div>
+                    <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+                        <input id="activitySearch" placeholder="Search activity" style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,.06)" />
+                        <div id="activityCount" class="small" style="min-width:90px;text-align:right">0 events</div>
+                    </div>
+                    <div id="activityList" class="activity-list">No activity yet.</div>
+                    <div class="activity-actions">
+                        <button id="exportJSON" class="btn btn-soft">Export JSON</button>
+                        <button id="exportCSV" class="btn btn-soft">Export CSV</button>
+                        <button id="clearActivity" class="btn btn-soft">Clear</button>
+                    </div>
+                    <p class="small">This log is stored locally on this device so you can see what actions happened here.</p>
+                </div>
+            </section>
+
+                <!-- Unlock modal for activity (hidden by default) -->
+                <div id="activityUnlock" class="modal hidden" role="dialog" aria-modal="true" aria-hidden="true">
+                    <div class="modal-panel">
+                        <h3>Unlock Activity</h3>
+                        <p>Double-tap the logo then enter the 4-digit code to continue.</p>
+                        <input id="activityCode" type="password" maxlength="6" placeholder="Enter code" />
+                        <div class="modal-actions">
+                            <button id="activityUnlockBtn" class="btn btn-primary">Unlock</button>
+                            <button id="activityCancel" class="btn btn-soft">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spin Wheel section -->
+                <section id="spin" class="about">
+                    <div class="card">
+                        <h2>Spin the Wheel</h2>
+                        <div id="wheelWrap" style="display:flex;align-items:center;gap:12px;flex-direction:column;">
+                            <div class="wheel-pointer" aria-hidden="true"></div>
+                            <div id="wheel" style="width:220px;height:220px;border-radius:50%;background:conic-gradient(#ff9bb1 0 45deg,#ffd4e0 45deg 90deg,#fff6e0 90deg 135deg,#ffc4cc 135deg 180deg,#ff9bb1 180deg 225deg,#ffd4e0 225deg 270deg,#fff6e0 270deg 315deg,#ffc4cc 315deg 360deg);transform:rotate(0deg);transition:transform 3s cubic-bezier(.1,.9,.1,1)"></div>
+                            <button id="spinBtn" class="btn btn-primary">Spin</button>
+                        </div>
+                        <div style="margin-top:12px;display:flex;justify-content:flex-end;gap:8px">
+                            <a class="btn btn-soft" href="#hero">Back to top</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Quiz section -->
+                <section id="quiz" class="about">
+                    <div class="card">
+                        <h2>Quiz</h2>
+                        <div id="quizBody"></div>
+                        <div style="margin-top:12px;display:flex;justify-content:flex-end;gap:8px">
+                            <a class="btn btn-soft" href="#hero">Back to top</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Plan a Date section -->
+                <section id="datePlanner" class="about">
+                    <div class="card">
+                        <h2>Plan a Date</h2>
+                        <input id="dateTitle" placeholder="Title (e.g. Dinner at 7pm)" style="width:100%;padding:8px;margin-bottom:8px" />
+                        <input id="dateInput" type="datetime-local" style="width:100%;padding:8px;margin-bottom:8px" />
+                        <div style="display:flex;justify-content:space-between;margin-top:8px;gap:8px;flex-wrap:wrap">
+                            <button id="dateSave" class="btn btn-primary">Save</button>
+                            <a class="btn btn-soft" href="#hero">Cancel</a>
+                        </div>
+                        <div id="dateList" style="margin-top:10px"></div>
+                    </div>
+                </section>
+            <footer class="site-footer">
+                <small>Made with <span class="heart">♥</span> — AswinSonuzz</small>
+            </footer>
+        </main>
+
+        <script src="script.js"></script>
+        <div id="toast" class="toast hidden" aria-live="polite"></div>
+    </body>
+</html>
